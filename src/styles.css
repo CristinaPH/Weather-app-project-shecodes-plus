@@ -1,8 +1,32 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
 h1 {
-  color: red;
   text-align: center;
+  font-weight: bold;
+  font-size: 35px;
 }
 
 li {
   list-style-type: none;
+  font-size: 18px;
+  font-weight: 100;
+}
+
+.weather-now {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  border-radius: 5px;
+  color: #505050;
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+.current-temperature {
+  font-size: 60px;
+  text-align: center;
+}
+
+.datetime {
+  font-size: 20px;
 }
