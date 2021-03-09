@@ -20,14 +20,16 @@
     <div class="row">
         <div class="col-6">
             <h2>Current Weather</h2>
-            <h3 class = "datetime">Tuesday 9 March, @12:13</h3>
-            <h2 class="current-temperature" id="temperature_now">4°C</h2>
+            <div class = "datetime">Tuesday 9 March, @12:13</div>
+            <div class="clearfix weather-tempetature">
+            <div class="float-left current-temperature" id="temperature_now"><strong>4</strong> <span class = "units" >°C</span></div>
             <ul>
                 <li>Real Feel -2°C</li>
                 <li>Wind Speed 5%</li>
                 <li>Hummidity 51%</li>
                 <li>Precipitation 51%</li>
             </ul>
+            </div>
             <p>Timezone: UTC+1</p>
         </div> <!--end col on the left side of the grid-->
         <div class="col-6">
@@ -38,7 +40,7 @@
     </div> <!-- end grid -->
 </div> <!--end weather-now class-->
 <footer><small><a href="https://github.com/CristinaPH/Weather-app-project-shecodes-plus" target = "_blank">Open-source code</a> by Cristina PH </small></footer>   
-</div>
+  </div>
     </div> <!--end container bootstrap-->
    <script src = "src/index.js"></script> 
 </body>

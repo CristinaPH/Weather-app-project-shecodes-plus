@@ -26,10 +26,17 @@ li {
 }
 
 .current-temperature {
-  font-size: 60px;
   text-align: center;
+}
+.current-temperature strong {
+  font-size: 70px;
+}
+.current-temperature .units {
+  position: relative;
+  top: -40px;
 }
 
 .datetime {
   font-size: 20px;
+  font-size: relative;
 }
