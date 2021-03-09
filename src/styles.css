@@ -13,9 +13,12 @@ li {
   font-weight: 100;
 }
 
-.weather-now {
+.weather-now-wrapper {
   max-width: 800px;
   margin: 40px auto;
+}
+
+.weather-now {
   padding: 20px 30px;
   border-radius: 5px;
   color: #505050;
