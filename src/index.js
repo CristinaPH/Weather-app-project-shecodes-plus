@@ -15,7 +15,7 @@ if (hours<10) {hours = `0${hours}`;
 let minutes = date.getMinutes();
 if (minutes<10) { minutes = `0${minutes}`;    
 } 
-console.log (date);
+//console.log (date);
 return `${day} ${dayMth} ${month} @${hours}:${minutes}`;
 }
 
