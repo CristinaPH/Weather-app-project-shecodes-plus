@@ -21,17 +21,18 @@
     <div class="row">
         <div class="col-6">
             <h2>Current Weather</h2>
-            <div class = "datetime capitalize">Tuesday 9 March, @12:13</div>
+            <div class = "datetime capitalize" id = "date"></div>
             <div class="clearfix weather-tempetature">
-            <div class="float-left current-temperature"><strong id= "temperature-now" ></strong> <span class = "units" >°C</span></div>
+            <div class="float-left current-temperature"><strong id= "temperature-now"></strong></div>
             <ul>
-                <li>Real feel <span id ="real-feel"></span>°C</li>
-                <li>Wind speed <span id="wind"></span>%</li>
+                <li>Real feel <span id ="real-feel"></span>°</li>
+                <li>Wind speed <span id="wind"></span> Km/h</li>
                 <li>Hummidity <span id="humidity"></span>%</li>
                 <li>Precipitation <span id="precipitation"></span>%</li>
             </ul>
             </div>
             <p>Timezone: UTC+1</p>
+            <p>Last updated @ <span id = "lastUpdate"></span></p>
         </div> <!--end col on the left side of the grid-->
         <div class="col-6">
             <img src="images/iconfinder_Thermometer_Snowflake_47316.png" alt="Snowing"> 

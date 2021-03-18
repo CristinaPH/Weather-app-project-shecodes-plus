@@ -31,10 +31,6 @@ li {
 .current-temperature strong {
   font-size: 70px;
 }
-.current-temperature .units {
-  position: relative;
-  top: -40px;
-}
 
 .datetime {
   font-size: 20px;
