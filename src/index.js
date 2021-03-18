@@ -35,16 +35,17 @@ return `${hours}:${minutes}`;
 
 
 function displayTemperature(response) {
-    //console.log (response.data.dt);
+    //console.log (response.data.weather[0].description);
 
     let city = response.data.name; 
     let temperature = Math.round(response.data.main.temp);
     let temperatureFeelsLike = Math.round(response.data.main.feels_like);
     let humidity = Math.round(response.data.main.humidity)  ;
     let windSpeed = Math.round(response.data.wind.speed);
-    let description = response.data.weather[0].description
+    let description = response.data.weather[0].description;
     let date = formatDate(response.data.dt*1000); 
     let lastUpdate = formatDateLastUpdate(response.data.dt*1000); 
+    let icon = response.data.weather[0].icon;
 
     
     let cityElement = document.querySelector ("#current-city");
@@ -55,7 +56,8 @@ function displayTemperature(response) {
     let descriptionElement = document.querySelector("#weather-description");
     let dateElement = document.querySelector ("#date");
     let lastUpdateElement = document.querySelector ("#lastUpdate");
-    
+    let iconElement = document.querySelector ("#icon");
+   
     cityElement.innerHTML = city; 
     temperatureElement.innerHTML = `${temperature}°`;
     temperatureRealFeel.innerHTML = temperatureFeelsLike;
@@ -64,9 +66,11 @@ function displayTemperature(response) {
     descriptionElement.innerHTML = description; 
     dateElement.innerHTML = date;  
     lastUpdateElement.innerHTML = lastUpdate;  
+    iconElement.setAttribute ("src", `http://openweathermap.org/img/wn/${icon}@2x.png`)
+    
 }
 
-let cityName = "New York";
+let cityName = "Vienna";
 let temperatureUnitCelsius = "metric";
 let apiKey = "8d17eb2f64026eb70f16e29b12bf932a";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${temperatureUnitCelsius}` ;
