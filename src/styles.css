@@ -40,3 +40,7 @@ li {
   font-size: 20px;
   font-size: relative;
 }
+
+.capitalize {
+  text-transform: capitalize;
+}

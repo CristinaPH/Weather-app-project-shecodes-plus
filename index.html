@@ -7,7 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/464b923ff7.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">   
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/styles.css">
     <title>CPH Weather App</title>
@@ -16,26 +17,25 @@
     <div class="container">
         <div class="weather-now-wrapper">
         <div class="weather-now border border-3">
-    <h1 class = "header" id= "header-city">Vienna</h1> 
+    <h1 class = "header capitalize" id= "current-city"></h1> 
     <div class="row">
         <div class="col-6">
             <h2>Current Weather</h2>
-            <div class = "datetime">Tuesday 9 March, @12:13</div>
+            <div class = "datetime capitalize">Tuesday 9 March, @12:13</div>
             <div class="clearfix weather-tempetature">
-            <div class="float-left current-temperature" id="temperature_now"><strong>4</strong> <span class = "units" >°C</span></div>
+            <div class="float-left current-temperature"><strong id= "temperature-now" ></strong> <span class = "units" >°C</span></div>
             <ul>
-                <li>Real Feel -2°C</li>
-                <li>Wind Speed 5%</li>
-                <li>Hummidity 51%</li>
-                <li>Precipitation 51%</li>
+                <li>Real feel <span id ="real-feel"></span>°C</li>
+                <li>Wind speed <span id="wind"></span>%</li>
+                <li>Hummidity <span id="humidity"></span>%</li>
+                <li>Precipitation <span id="precipitation"></span>%</li>
             </ul>
             </div>
             <p>Timezone: UTC+1</p>
         </div> <!--end col on the left side of the grid-->
         <div class="col-6">
             <img src="images/iconfinder_Thermometer_Snowflake_47316.png" alt="Snowing"> 
-            <p>Snowing now</p>
-            <p>Don`t forger your gloves</p>
+            <p id = "weather-description" class = "capitalize"></p>
         </div>
     </div> <!-- end grid -->
 </div> <!--end weather-now class-->
