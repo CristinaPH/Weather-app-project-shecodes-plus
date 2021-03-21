@@ -1,5 +1,6 @@
 
 
+//1. Api; openweathermap
 function formatDate (timestamp){
 //calculate the current date; 
 let date = new Date (); 
@@ -21,7 +22,6 @@ return `${day} ${dayMth} ${month} @${hours}:${minutes}`;
 
 
 function formatDateLastUpdate (timestamp){
-//calculate the date; 
 let timeLastUpdate = new Date (timestamp); 
 
 let hours = timeLastUpdate.getHours();
@@ -33,11 +33,10 @@ if (minutes<10) { minutes = `0${minutes}`;
 return `${hours}:${minutes}`;
 }
 
-
 function displayTemperature(response) {
-    //console.log (response.data.weather[0].description);
+    //console.log (response.data.dt);
 
-    let city = response.data.name; 
+    let currentCity = response.data.name; 
     let temperature = Math.round(response.data.main.temp);
     let temperatureFeelsLike = Math.round(response.data.main.feels_like);
     let humidity = Math.round(response.data.main.humidity)  ;
@@ -58,7 +57,7 @@ function displayTemperature(response) {
     let lastUpdateElement = document.querySelector ("#lastUpdate");
     let iconElement = document.querySelector ("#icon");
    
-    cityElement.innerHTML = city; 
+    cityElement.innerHTML = currentCity; 
     temperatureElement.innerHTML = `${temperature}°`;
     temperatureRealFeel.innerHTML = temperatureFeelsLike;
     humidityElement.innerHTML = humidity;
@@ -70,9 +69,24 @@ function displayTemperature(response) {
     
 }
 
-let cityName = "Vienna";
+//2. search engine
+function search(city) {
 let temperatureUnitCelsius = "metric";
 let apiKey = "8d17eb2f64026eb70f16e29b12bf932a";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${temperatureUnitCelsius}` ;
-
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${temperatureUnitCelsius}` ;
 axios.get(apiUrl).then(displayTemperature);
+}
+//search("New York");
+
+function handleSubmit(event) {
+    event.preventDefault ();
+    let cityInputElement = document.querySelector ("#city-input");
+    search(cityInputElement.value);
+    //console.log (cityInputElement.value);
+}
+
+let form = document.querySelector ("#search-form");
+form.addEventListener ("submit", handleSubmit);
+
+
+

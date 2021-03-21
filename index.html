@@ -15,31 +15,45 @@
 </head>
 <body>
     <div class="container">
-        <div class="weather-now-wrapper">
-        <div class="weather-now border border-3">
-    <h1 class = "header capitalize" id= "current-city"></h1> 
-    <div class="row">
-        <div class="col-6">
-            <h2>Current Weather</h2>
-            <div class = "datetime capitalize" id = "date"></div>
-            <div class="clearfix weather-tempetature">
-            <div class="float-left current-temperature"><strong id= "temperature-now"></strong></div>
-            <ul>
-                <li>Real feel <span id ="real-feel"></span>°</li>
-                <li>Wind speed <span id="wind"></span> Km/h</li>
-                <li>Hummidity <span id="humidity"></span>%</li>
-                <li>Precipitation <span id="precipitation"></span>%</li>
-            </ul>
-            </div>
-            <p>Timezone: UTC+1</p>
-            <p>Last updated @ <span id = "lastUpdate"></span></p>
-        </div> <!--end col on the left side of the grid-->
-        <div class="col-6">
-            <img id = "icon" src = "" alt="" class= "capitalize"> 
-            <p id = "weather-description" class = "capitalize"></p>
-        </div>
-    </div> <!-- end grid -->
-</div> <!--end weather-now class-->
+        <div class="weather-app-wrapper">
+            <div class="weather-app border border-3">
+                <div class="search-engine">
+                <form id="search-form" class="mb-4">
+                    <div class="row">
+                        <div class="col-9">
+                        <input type="search" placeholder="Search for a city..." class = "form-control" id = "city-input" autocomplete = "off">
+                        </div>
+                        <div class="col-3">
+                        <input type="submit" value = "Search" button type="button" class="btn btn-primary w-100"> 
+                        </div>
+                    </div>
+                </form>
+            </div> <!--search engine-->
+            <div class="overview">
+            <h1 class = "header capitalize" id= "current-city"></h1> 
+                <div class="row">
+                    <div class="col-6">
+                        <h2>Current Weather</h2>
+                        <div class = "datetime capitalize" id = "date"></div>
+                        <div class="clearfix weather-tempetature">
+                        <div class="float-left current-temperature"><strong id= "temperature-now"></strong></div>
+                        <ul>
+                            <li>Real feel <span id ="real-feel"></span>°</li>
+                            <li>Wind speed <span id="wind"></span> Km/h</li>
+                            <li>Hummidity <span id="humidity"></span>%</li>
+                            <li>Precipitation <span id="precipitation"></span>%</li>
+                        </ul>
+                        </div>
+                        <p>Timezone: UTC+1</p>
+                        <p>Last updated @ <span id = "lastUpdate"></span></p>
+                        </div> <!--end col on the left side of the grid-->
+                        <div class="col-6">
+                        <img id = "icon" src = "" > 
+                        <p id = "weather-description" class = "capitalize"></p>
+                    </div>
+                </div> <!-- end grid -->
+            </div> <!--end overview-->
+        </div> <!--end weather-app class-->
 <footer><small><a href="https://github.com/CristinaPH/Weather-app-project-shecodes-plus" target = "_blank">Open-source code</a> by Cristina PH </small></footer>   
   </div>
     </div> <!--end container bootstrap-->
