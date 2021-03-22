@@ -40,8 +40,3 @@ li {
 .capitalize {
   text-transform: capitalize;
 }
-
-.units {
-  font-size: large;
-  font-weight: bold;
-}

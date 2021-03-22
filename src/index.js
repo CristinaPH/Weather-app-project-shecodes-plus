@@ -34,8 +34,10 @@ return `${hours}:${minutes}`;
 function displayTemperature(response) {
     //console.log (response.data.dt);
 
+    celsiusTemperature = response.data.main.temp;
+
     let currentCity = response.data.name; 
-    let temperature = Math.round(response.data.main.temp);
+    let temperature = Math.round(celsiusTemperature);
     let temperatureFeelsLike = Math.round(response.data.main.feels_like);
     let humidity = Math.round(response.data.main.humidity)  ;
     let windSpeed = Math.round(response.data.wind.speed);
@@ -83,19 +85,54 @@ function handleSubmit(event) {
     //console.log (cityInputElement.value);
 }
 
+
+
+//https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/checkbox
+//document.addEventListener('DOMContentLoaded', function() {
+//  var checkboxes = document.querySelectorAll('input[type=checkbox][name=fahrenheit]');
+// 
+//  for (var checkbox of checkboxes) {
+//    checkbox.addEventListener('change', function(event) {
+//      if (event.target.checked) {
+//        alert(`${event.target.value} is checked`);
+//      } else {
+//        alert(`${event.target.value} is unchecked`);
+//      }
+//    });
+//  }
+//}, false);
+
 function displayFahrenheitTemperature (event) {
-    event.prventDefaulth();
-    let temperatureElement = document.querySelector ("#temperature-now");
-    let fahrenheitTemperature =  (temperatureElement.innerHTML * 9/5) + 32;
-    temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-    alert (fahrenheitTemperature);
+    event.preventDefault ();
+    let temperatureElement = document.querySelector("#temperature-now");
+    let fahrenheitTemperature =  (celsiusTemperature * 9) / 5 + 32;
+   if (event.target.checked) {
+       alert(`Temperature in Fahrenheit`);
+       temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+     } else {
+       alert(`Temperature in Celsius`);
+       temperatureElement.innerHTML = Math.round(celsiusTemperature);
+     }
+;
 }
+
+
 
 let form = document.querySelector ("#search-form");
 form.addEventListener ("submit", handleSubmit);
 
-let fahrenheitSwitch = document.querySelector ("#flexSwitchCheckDefault");
-fahrenheitSwitch.addEventListener = ("change", displayFahrenheitTemperature);
+ //3. unit conversion
+
+//let fahrenheitSwitch = document.querySelector ("#flexSwitchCheckDefault");  //without the loop doesn´t work back and forth
+//fahrenheitSwitch.addEventListener ("change", displayFahrenheitTemperature);
+
+let fahrenheitSwitch = document.querySelectorAll ("#flexSwitchCheckDefault");
+for (let checkbox of fahrenheitSwitch) {
+checkbox.addEventListener ("change", displayFahrenheitTemperature);
+}
+
+let celsiusTemperature = null  //populate in displayTemperature function from api response
+
 
 search("New York");
 
