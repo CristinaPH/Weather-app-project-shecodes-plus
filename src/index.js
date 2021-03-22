@@ -1,5 +1,3 @@
-
-
 //1. Api; openweathermap
 function formatDate (timestamp){
 //calculate the current date; 
@@ -76,7 +74,7 @@ let apiKey = "8d17eb2f64026eb70f16e29b12bf932a";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${temperatureUnitCelsius}` ;
 axios.get(apiUrl).then(displayTemperature);
 }
-//search("New York");
+
 
 function handleSubmit(event) {
     event.preventDefault ();
@@ -85,8 +83,19 @@ function handleSubmit(event) {
     //console.log (cityInputElement.value);
 }
 
+function displayFahrenheitTemperature (event) {
+    event.prventDefaulth();
+    let temperatureElement = document.querySelector ("#temperature-now");
+    let fahrenheitTemperature =  (temperatureElement.innerHTML * 9/5) + 32;
+    temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+    alert (fahrenheitTemperature);
+}
+
 let form = document.querySelector ("#search-form");
 form.addEventListener ("submit", handleSubmit);
 
+let fahrenheitSwitch = document.querySelector ("#flexSwitchCheckDefault");
+fahrenheitSwitch.addEventListener = ("change", displayFahrenheitTemperature);
 
+search("New York");
 

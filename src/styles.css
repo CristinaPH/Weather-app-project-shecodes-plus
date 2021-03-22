@@ -29,7 +29,7 @@ li {
   text-align: center;
 }
 .current-temperature strong {
-  font-size: 70px;
+  font-size: 60px;
 }
 
 .datetime {
@@ -39,4 +39,9 @@ li {
 
 .capitalize {
   text-transform: capitalize;
+}
+
+.units {
+  font-size: large;
+  font-weight: bold;
 }
