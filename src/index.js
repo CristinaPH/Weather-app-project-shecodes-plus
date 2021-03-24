@@ -46,7 +46,6 @@ function displayTemperature(response) {
     let lastUpdate = formatDateLastUpdate(response.data.dt*1000); 
     let icon = response.data.weather[0].icon;
 
-    
     let cityElement = document.querySelector ("#current-city");
     let temperatureElement = document.querySelector ("#temperature-now");
     let temperatureRealFeel = document.querySelector ("#real-feel");
@@ -78,16 +77,25 @@ axios.get(apiUrl).then(displayTemperature);
 }
 
 
+//function handleSubmit(event) {
+//    event.preventDefault ();
+//    let cityInputElement = document.querySelector ("#city-input");
+//    search(cityInputElement.value);
+//    //console.log (cityInputElement.value);
+//}
+
 function handleSubmit(event) {
-    event.preventDefault ();
-    let cityInputElement = document.querySelector ("#city-input");
-    search(cityInputElement.value);
-    //console.log (cityInputElement.value);
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
+  let conversionToggle = document.querySelector("#flexSwitchCheckDefault");
+  conversionToggle.checked = false;
+  search(cityInputElement.value);
+  //console.log (cityInputElement.value);
 }
 
 
-
 //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/checkbox
+//https://www.techiedelight.com/bind-to-checkbox-change-event-with-javascript/
 //document.addEventListener('DOMContentLoaded', function() {
 //  var checkboxes = document.querySelectorAll('input[type=checkbox][name=fahrenheit]');
 // 
@@ -101,6 +109,8 @@ function handleSubmit(event) {
 //    });
 //  }
 //}, false);
+
+
 
 function displayFahrenheitTemperature (event) {
     event.preventDefault ();
@@ -117,19 +127,17 @@ function displayFahrenheitTemperature (event) {
 }
 
 
-
 let form = document.querySelector ("#search-form");
 form.addEventListener ("submit", handleSubmit);
 
  //3. unit conversion
 
-//let fahrenheitSwitch = document.querySelector ("#flexSwitchCheckDefault");  //without the loop doesn´t work back and forth
-//fahrenheitSwitch.addEventListener ("change", displayFahrenheitTemperature);
-
+//document.addEventListener('DOMContentLoaded', function() {
 let fahrenheitSwitch = document.querySelectorAll ("#flexSwitchCheckDefault");
 for (let checkbox of fahrenheitSwitch) {
 checkbox.addEventListener ("change", displayFahrenheitTemperature);
 }
+//}, false);
 
 let celsiusTemperature = null  //populate in displayTemperature function from api response
 
