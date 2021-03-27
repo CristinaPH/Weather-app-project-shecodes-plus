@@ -31,10 +31,16 @@ if (minutes<10) { minutes = `0${minutes}`;
 return `${hours}:${minutes}`;
 }
 
+
+
 function displayTemperature(response) {
-    //console.log (response.data.dt);
+    //console.log (response.data.coord);
 
     celsiusTemperature = response.data.main.temp;
+    lat = response.data.coord.lat;
+    lon = response.data.coord.lon;
+    window.lat = lat;
+    window.lon = lon; 
 
     let currentCity = response.data.name; 
     let temperature = Math.round(celsiusTemperature);
@@ -65,8 +71,17 @@ function displayTemperature(response) {
     dateElement.innerHTML = date;  
     lastUpdateElement.innerHTML = lastUpdate;  
     iconElement.setAttribute ("src", `http://openweathermap.org/img/wn/${icon}@2x.png`)
+
+
+console.log (lat);
+console.log (lon);
     
 }
+
+function displayForecast (response) {
+console.log (response.data);
+}
+
 
 //2. search engine
 function search(city) {
@@ -74,15 +89,20 @@ let temperatureUnitCelsius = "metric";
 let apiKey = "8d17eb2f64026eb70f16e29b12bf932a";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${temperatureUnitCelsius}` ;
 axios.get(apiUrl).then(displayTemperature);
+
 }
 
 
-//function handleSubmit(event) {
-//    event.preventDefault ();
-//    let cityInputElement = document.querySelector ("#city-input");
-//    search(cityInputElement.value);
-//    //console.log (cityInputElement.value);
-//}
+function forecast(lat, lon) {
+let temperatureUnitCelsius = "metric";
+let apiKey = "8d17eb2f64026eb70f16e29b12bf932a";
+//apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${temperatureUnitCelsius}`;
+apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${apiKey}`
+axios.get(apiUrl).then(displayForecast);
+
+}
+
+
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -132,15 +152,21 @@ form.addEventListener ("submit", handleSubmit);
 
  //3. unit conversion
 
-//document.addEventListener('DOMContentLoaded', function() {
 let fahrenheitSwitch = document.querySelectorAll ("#flexSwitchCheckDefault");
 for (let checkbox of fahrenheitSwitch) {
 checkbox.addEventListener ("change", displayFahrenheitTemperature);
 }
-//}, false);
 
-let celsiusTemperature = null  //populate in displayTemperature function from api response
+
+let celsiusTemperature = null;  //populate in displayTemperature function from api response
+let lat = null;
+let lon = null;
 
 
 search("New York");
+forecast ("40.7143", "-74.006")
+
+
+
+
 
