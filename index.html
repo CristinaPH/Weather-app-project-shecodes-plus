@@ -30,20 +30,21 @@
             <div class="search-engine">
                 <form id="search-form" class="mb-4">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-8">
                         <input type="search" placeholder="Search for a city..." class = "form-control" id = "city-input" autocomplete = "off">
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                         <input type="submit" value = "Search" class="btn btn-primary w-100" id = "submit-btn"> 
                         </div> 
+                        <!--
                         <div class="col-3">
                             <input type="click" value="Your location" class="btn btn-primary w-100">
-                        </div>
+                        </div>-->
                     </div>
                 </form>
             </div> <!--search engine-->
-            <div class="overview">
-            <h1 class = "header capitalize" id= "current-city"></h1> 
+            <div class="overview  p-4 m-3 border border-5 rounded" >
+            <h1 class = "header capitalize mb-4" id= "current-city"></h1> 
                 <div class="row">
                     <div class="col-6">
                         <h2>Current Weather</h2>
@@ -51,26 +52,27 @@
                         <div class="clearfix weather-tempetature">
                         <div class="float-left current-temperature"><strong id= "temperature-now"></strong></div>
                         <ul>
-                            <li>Real feel <span id ="real-feel"></span>°</li>
-                            <li>Wind speed <span id="wind"></span> Km/h</li>
-                            <li>Hummidity <span id="humidity"></span>%</li>
-                            <li>Precipitation <span id="precipitation"></span>%</li>
+                            <li class = "current-temperature-details" >Real feel <span  class = "current-temperature-details" id ="real-feel"></span>°</li>
+                            <li class = "current-temperature-details" >Wind speed <span class = "current-temperature-details"  id="wind"></span> Km/h</li>
+                            <li class = "current-temperature-details" >Hummidity <span  class = "current-temperature-details" id="humidity"></span>%</li>
                         </ul>
                         </div>
+                        
                     </div> <!--end col on the left side of the grid-->
-                    <div class="col-6">
-                        <img id = "icon" src = "" > 
+                    <div class="col-6 icon-desc">
+                        <img class = "icon" id = "icon" src = "" > 
                         <p id = "weather-description" class = "capitalize"></p>
                     </div>
                 </div> <!-- end grid -->
+                </div> <!--end overview-->
                 <div class="forecast_daily p-4 m-3  border border-5 rounded" >
                 <div class="row" id= "forecast"></div>
                 </div><!--end forecast grid-->
-                <p>Timezone: UTC+1</p>
+                <!--<p>Timezone: UTC+1</p>-->
                 <p>Last updated @ <span id = "lastUpdate"></span></p>
-            </div> <!--end overview-->
+            
         </div> <!--end weather-app class-->
-<footer><small><a href="https://github.com/CristinaPH/Weather-app-project-shecodes-plus" target = "_blank">Open-source code</a> by Cristina PH </small></footer>   
+<footer><small><a href="https://github.com/CristinaPH/Weather-app-project-shecodes-plus" target = "_blank">Open-source code</a> by Cristina PH for <a href="https://www.shecodes.io" target="_blank">shecodes.io</a></small></footer>   
   </div>
     </div> <!--end container bootstrap-->
    <script src = "src/index.js"></script> 

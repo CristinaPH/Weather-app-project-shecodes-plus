@@ -4,12 +4,12 @@ body {
 h1 {
   text-align: center;
   font-weight: bold;
-  font-size: 35px;
+  font-size: 30px;
 }
 
-li {
+.current-temperature-details {
   list-style-type: none;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 100;
 }
 
@@ -22,7 +22,7 @@ li {
   padding: 20px 30px;
   border-radius: 5px;
   color: #505050;
-  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  background-image: linear-gradient(to bottom, #cfd9df 0%, #e2ebf0 50%);
 }
 
 .current-temperature {
