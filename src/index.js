@@ -31,20 +31,31 @@ if (minutes<10) { minutes = `0${minutes}`;
 return `${hours}:${minutes}`;
 }
 
-
+function getNameOfDay(timestamp) {
+  let date = new Date(timestamp)
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ]
+  let day = days[date.getDay()];
+  return day;
+}
 
 function displayTemperature(response) {
     //console.log (response.data.coord);
-
-    celsiusTemperature = response.data.main.temp;
-    lat = response.data.coord.lat;
-    lon = response.data.coord.lon;
-    window.lat = lat;
-    window.lon = lon; 
-
+    celsiusTemperature = Math.round(response.data.main.temp);
+    celsiusRealFeal = Math.round(response.data.main.feels_like);
+    let latitude = response.data.coord.lat;
+    let longitude = response.data.coord.lon;
+    fetchForecast(latitude,longitude);
     let currentCity = response.data.name; 
     let temperature = Math.round(celsiusTemperature);
-    let temperatureFeelsLike = Math.round(response.data.main.feels_like);
+    let temperatureFeelsLike = Math.round(celsiusRealFeal);
     let humidity = Math.round(response.data.main.humidity)  ;
     let windSpeed = Math.round(response.data.wind.speed);
     let description = response.data.weather[0].description;
@@ -72,15 +83,8 @@ function displayTemperature(response) {
     lastUpdateElement.innerHTML = lastUpdate;  
     iconElement.setAttribute ("src", `http://openweathermap.org/img/wn/${icon}@2x.png`)
 
-
-console.log (lat);
-console.log (lon);
-    
 }
 
-function displayForecast (response) {
-console.log (response.data);
-}
 
 
 //2. search engine
@@ -89,20 +93,58 @@ let temperatureUnitCelsius = "metric";
 let apiKey = "8d17eb2f64026eb70f16e29b12bf932a";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${temperatureUnitCelsius}` ;
 axios.get(apiUrl).then(displayTemperature);
-
 }
 
+// forecast api based on coordinates
+function displayForecast (response) {
+let forecastElement = document.querySelector("#forecast");
+forecastElement.innerHTML = null;
+let forecast = null; 
+let icon = null;
+let description = null;
 
-function forecast(lat, lon) {
+
+for (let index = 0; index < 6; index++) {
+  forecast = response.data.daily[index];
+  celsiusMaxDay0 = Math.round(response.data.daily[0].temp.max);
+  celsiusMaxDay1 = Math.round(response.data.daily[1].temp.max);
+  celsiusMaxDay2 = Math.round(response.data.daily[2].temp.max);
+  celsiusMaxDay3 = Math.round(response.data.daily[3].temp.max);
+  celsiusMaxDay4 = Math.round(response.data.daily[4].temp.max);
+  celsiusMaxDay5 = Math.round(response.data.daily[5].temp.max);
+  
+  celsiusMinDay0 = Math.round(response.data.daily[0].temp.min);
+  celsiusMinDay1 = Math.round(response.data.daily[1].temp.min);
+  celsiusMinDay2 = Math.round(response.data.daily[2].temp.min);
+  celsiusMinDay3 = Math.round(response.data.daily[3].temp.min);
+  celsiusMinDay4 = Math.round(response.data.daily[4].temp.min);
+  celsiusMinDay5 = Math.round(response.data.daily[5].temp.min);
+ 
+
+    //console.log (response.data.daily[0].temp.min);  
+    
+    forecastElement.innerHTML += `
+            <div class="col-3">
+            <h3 class = "day">${getNameOfDay(forecast.dt*1000)}</h3>
+            </div>
+            <div class="col-3"><img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt = ""></div>
+            <div class="col-3 weather-forecast-temperature">
+            <i class="fas fa-long-arrow-alt-up max_temperature" id = "forecast-max${index}"></i><span class="max max-day${index}">${Math.round(forecast.temp.max)}°</span>
+            <span> </span>
+            <i class="fas fa-long-arrow-alt-down min_temperature" id = "forecast-min${index}"></i><span class="min min-day${index}">${Math.round(forecast.temp.min)}°</span>
+            </div>
+            <div class = "col-3 capitalize">${forecast.weather[0].description}</div>
+           `
+  }
+}
+
+function fetchForecast(latitude, longitude) {
 let temperatureUnitCelsius = "metric";
 let apiKey = "8d17eb2f64026eb70f16e29b12bf932a";
-//apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${temperatureUnitCelsius}`;
-apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${apiKey}`
+//let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${temperatureUnitCelsius}`;
+let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=metric`;
 axios.get(apiUrl).then(displayForecast);
-
 }
-
-
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -113,45 +155,113 @@ function handleSubmit(event) {
   //console.log (cityInputElement.value);
 }
 
-
-//https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/checkbox
-//https://www.techiedelight.com/bind-to-checkbox-change-event-with-javascript/
-//document.addEventListener('DOMContentLoaded', function() {
-//  var checkboxes = document.querySelectorAll('input[type=checkbox][name=fahrenheit]');
-// 
-//  for (var checkbox of checkboxes) {
-//    checkbox.addEventListener('change', function(event) {
-//      if (event.target.checked) {
-//        alert(`${event.target.value} is checked`);
-//      } else {
-//        alert(`${event.target.value} is unchecked`);
-//      }
-//    });
-//  }
-//}, false);
-
-
-
+/*
+//unit conversion
 function displayFahrenheitTemperature (event) {
     event.preventDefault ();
     let temperatureElement = document.querySelector("#temperature-now");
-    let fahrenheitTemperature =  (celsiusTemperature * 9) / 5 + 32;
+    let realFeelElement = document.querySelector("#real-feel");
+    let fahrenheitTemperature =  Math.round((celsiusTemperature * 9) / 5 + 32);
+    let fahrenheitRealFeelElement =   Math.round((celsiusRealFeal * 9) / 5 + 32);
    if (event.target.checked) {
        alert(`Temperature in Fahrenheit`);
-       temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+       temperatureElement.innerHTML = `${fahrenheitTemperature}°`;
+       realFeelElement.innerHTML = fahrenheitRealFeelElement;
      } else {
        alert(`Temperature in Celsius`);
-       temperatureElement.innerHTML = Math.round(celsiusTemperature);
+       temperatureElement.innerHTML = `${celsiusTemperature}°`;
+       realFeelElement.innerHTML = celsiusRealFeal;
      }
-;
-}
 
+}
+*/
+
+//unit conversion
+function displayFahrenheitTemperature (event) {
+    event.preventDefault ();
+    let temperatureElement = document.querySelector("#temperature-now");
+    let realFeelElement = document.querySelector("#real-feel");
+    let fahrenheitTemperature =  Math.round((celsiusTemperature * 9) / 5 + 32);
+    let fahrenheitRealFeel =     Math.round((celsiusRealFeal * 9) / 5 + 32);
+    
+    
+        //forecast conversion maddness
+    let maxDay0Element = document.querySelector (".max-day0");
+    let maxDay1Element = document.querySelector (".max-day1");
+    let maxDay2Element = document.querySelector (".max-day2");
+    let maxDay3Element = document.querySelector (".max-day3");
+    let maxDay4Element = document.querySelector (".max-day4");
+    let maxDay5Element = document.querySelector (".max-day5");
+   
+    let minDay0Element = document.querySelector (".min-day0");
+    let minDay1Element = document.querySelector (".min-day1");
+    let minDay2Element = document.querySelector (".min-day2");
+    let minDay3Element = document.querySelector (".min-day3");
+    let minDay4Element = document.querySelector (".min-day4");
+    let minDay5Element = document.querySelector (".min-day5");
+    
+    let maxDay0Fahrenheit = (celsiusMaxDay0* 9) / 5 + 32;
+    let maxDay1Fahrenheit = (celsiusMaxDay1* 9) / 5 + 32;
+    let maxDay2Fahrenheit = (celsiusMaxDay2* 9) / 5 + 32;
+    let maxDay3Fahrenheit = (celsiusMaxDay3* 9) / 5 + 32;
+    let maxDay4Fahrenheit = (celsiusMaxDay4* 9) / 5 + 32;
+    let maxDay5Fahrenheit = (celsiusMaxDay5* 9) / 5 + 32;
+   
+    let minDay0Fahrenheit = (celsiusMinDay0* 9) / 5 + 32;
+    let minDay1Fahrenheit = (celsiusMinDay1* 9) / 5 + 32;
+    let minDay2Fahrenheit = (celsiusMinDay2* 9) / 5 + 32;
+    let minDay3Fahrenheit = (celsiusMinDay3* 9) / 5 + 32;
+    let minDay4Fahrenheit = (celsiusMinDay4* 9) / 5 + 32;
+    let minDay5Fahrenheit = (celsiusMinDay5* 9) / 5 + 32;
+  
+
+
+   if (event.target.checked) {
+       alert(`Temperature in Fahrenheit`);
+       temperatureElement.innerHTML = `${fahrenheitTemperature}°`;
+       realFeelElement.innerHTML = fahrenheitRealFeel;
+       maxDay0Element.innerHTML = maxDay0Fahrenheit;
+       maxDay1Element.innerHTML = maxDay1Fahrenheit;
+       maxDay2Element.innerHTML = maxDay2Fahrenheit;
+       maxDay3Element.innerHTML = maxDay3Fahrenheit;
+       maxDay4Element.innerHTML = maxDay4Fahrenheit;
+       maxDay5Element.innerHTML = maxDay5Fahrenheit;
+       
+       minDay0Element.innerHTML = minDay0Fahrenheit;
+       minDay1Element.innerHTML = minDay1Fahrenheit;
+       minDay2Element.innerHTML = minDay2Fahrenheit;
+       minDay3Element.innerHTML = minDay3Fahrenheit;
+       minDay4Element.innerHTML = minDay4Fahrenheit;
+       minDay5Element.innerHTML = minDay5Fahrenheit;
+     
+     
+     } else {
+       alert(`Temperature in Celsius`);
+       temperatureElement.innerHTML = `${celsiusTemperature}°`;
+       realFeelElement.innerHTML = celsiusRealFeal;
+
+       maxDay0Element.innerHTML = celsiusMaxDay0; 
+       maxDay1Element.innerHTML = celsiusMaxDay1; 
+       maxDay2Element.innerHTML = celsiusMaxDay2; 
+       maxDay3Element.innerHTML = celsiusMaxDay3; 
+       maxDay4Element.innerHTML = celsiusMaxDay4; 
+       maxDay5Element.innerHTML = celsiusMaxDay5; 
+       
+       minDay0Element.innerHTML = celsiusMinDay0; 
+       minDay1Element.innerHTML = celsiusMinDay1; 
+       minDay2Element.innerHTML = celsiusMinDay2; 
+       minDay3Element.innerHTML = celsiusMinDay3; 
+       minDay4Element.innerHTML = celsiusMinDay4; 
+       minDay5Element.innerHTML = celsiusMinDay5; 
+       
+     }
+
+}
 
 let form = document.querySelector ("#search-form");
 form.addEventListener ("submit", handleSubmit);
 
  //3. unit conversion
-
 let fahrenheitSwitch = document.querySelectorAll ("#flexSwitchCheckDefault");
 for (let checkbox of fahrenheitSwitch) {
 checkbox.addEventListener ("change", displayFahrenheitTemperature);
@@ -159,12 +269,26 @@ checkbox.addEventListener ("change", displayFahrenheitTemperature);
 
 
 let celsiusTemperature = null;  //populate in displayTemperature function from api response
-let lat = null;
-let lon = null;
+let celsiusRealFeal = null;
+let celsiusMaxDay0 = null;
+let celsiusMaxDay1 = null;
+let celsiusMaxDay2 = null;
+let celsiusMaxDay3 = null;
+let celsiusMaxDay4 = null;
+let celsiusMaxDay5 = null;
+let celsiusMaxDay6 = null;
+let celsiusMinDay0 = null;
+let celsiusMinDay1 = null;
+let celsiusMinDay2 = null;
+let celsiusMinDay3 = null;
+let celsiusMinDay4 = null;
+let celsiusMinDay5 = null;
+let celsiusMinDay6 = null;
 
 
-search("New York");
-forecast ("40.7143", "-74.006")
+
+search("New York"); 
+
 
 
 
