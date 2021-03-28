@@ -47,7 +47,7 @@ function getNameOfDay(timestamp) {
 }
 
 function displayTemperature(response) {
-    //console.log (response.data.coord);
+    console.log (response.data.timezone);
     celsiusTemperature = Math.round(response.data.main.temp);
     celsiusRealFeal = Math.round(response.data.main.feels_like);
     let latitude = response.data.coord.lat;
@@ -155,27 +155,6 @@ function handleSubmit(event) {
   //console.log (cityInputElement.value);
 }
 
-/*
-//unit conversion
-function displayFahrenheitTemperature (event) {
-    event.preventDefault ();
-    let temperatureElement = document.querySelector("#temperature-now");
-    let realFeelElement = document.querySelector("#real-feel");
-    let fahrenheitTemperature =  Math.round((celsiusTemperature * 9) / 5 + 32);
-    let fahrenheitRealFeelElement =   Math.round((celsiusRealFeal * 9) / 5 + 32);
-   if (event.target.checked) {
-       alert(`Temperature in Fahrenheit`);
-       temperatureElement.innerHTML = `${fahrenheitTemperature}°`;
-       realFeelElement.innerHTML = fahrenheitRealFeelElement;
-     } else {
-       alert(`Temperature in Celsius`);
-       temperatureElement.innerHTML = `${celsiusTemperature}°`;
-       realFeelElement.innerHTML = celsiusRealFeal;
-     }
-
-}
-*/
-
 //unit conversion
 function displayFahrenheitTemperature (event) {
     event.preventDefault ();
@@ -200,19 +179,19 @@ function displayFahrenheitTemperature (event) {
     let minDay4Element = document.querySelector (".min-day4");
     let minDay5Element = document.querySelector (".min-day5");
     
-    let maxDay0Fahrenheit = (celsiusMaxDay0* 9) / 5 + 32;
-    let maxDay1Fahrenheit = (celsiusMaxDay1* 9) / 5 + 32;
-    let maxDay2Fahrenheit = (celsiusMaxDay2* 9) / 5 + 32;
-    let maxDay3Fahrenheit = (celsiusMaxDay3* 9) / 5 + 32;
-    let maxDay4Fahrenheit = (celsiusMaxDay4* 9) / 5 + 32;
-    let maxDay5Fahrenheit = (celsiusMaxDay5* 9) / 5 + 32;
+    let maxDay0Fahrenheit =  Math.round((celsiusMaxDay0* 9) / 5 + 32);
+    let maxDay1Fahrenheit =  Math.round((celsiusMaxDay1* 9) / 5 + 32);
+    let maxDay2Fahrenheit =  Math.round((celsiusMaxDay2* 9) / 5 + 32);
+    let maxDay3Fahrenheit =  Math.round((celsiusMaxDay3* 9) / 5 + 32);
+    let maxDay4Fahrenheit =  Math.round((celsiusMaxDay4* 9) / 5 + 32);
+    let maxDay5Fahrenheit =  Math.round((celsiusMaxDay5* 9) / 5 + 32);
    
-    let minDay0Fahrenheit = (celsiusMinDay0* 9) / 5 + 32;
-    let minDay1Fahrenheit = (celsiusMinDay1* 9) / 5 + 32;
-    let minDay2Fahrenheit = (celsiusMinDay2* 9) / 5 + 32;
-    let minDay3Fahrenheit = (celsiusMinDay3* 9) / 5 + 32;
-    let minDay4Fahrenheit = (celsiusMinDay4* 9) / 5 + 32;
-    let minDay5Fahrenheit = (celsiusMinDay5* 9) / 5 + 32;
+    let minDay0Fahrenheit =  Math.round((celsiusMinDay0* 9) / 5 + 32);
+    let minDay1Fahrenheit =  Math.round((celsiusMinDay1* 9) / 5 + 32);
+    let minDay2Fahrenheit =  Math.round((celsiusMinDay2* 9) / 5 + 32);
+    let minDay3Fahrenheit =  Math.round((celsiusMinDay3* 9) / 5 + 32);
+    let minDay4Fahrenheit =  Math.round((celsiusMinDay4* 9) / 5 + 32);
+    let minDay5Fahrenheit =  Math.round((celsiusMinDay5* 9) / 5 + 32);
   
 
 
@@ -220,6 +199,7 @@ function displayFahrenheitTemperature (event) {
        alert(`Temperature in Fahrenheit`);
        temperatureElement.innerHTML = `${fahrenheitTemperature}°`;
        realFeelElement.innerHTML = fahrenheitRealFeel;
+
        maxDay0Element.innerHTML = maxDay0Fahrenheit;
        maxDay1Element.innerHTML = maxDay1Fahrenheit;
        maxDay2Element.innerHTML = maxDay2Fahrenheit;
